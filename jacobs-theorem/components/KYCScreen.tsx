@@ -4,7 +4,7 @@ import AISymbol from "./AISymbol";
 import Question from "./Question";
 import Controls from "./voice/Controls";
 import Messages from "./voice/Messages";
-import Header from "./Header"; // Import the new Header component
+import UserInput from "./UserInput";
 
 // Define the prop types using a type or interface
 interface QuestionComponentProps {
@@ -20,19 +20,14 @@ const KYCScreen: React.FC<QuestionComponentProps> = ({
 }) => {
   return (
     <View style={styles.container}>
-      {/* Header at the top */}
-      <Header progress={progress} />
-
-      {/* Content below the header */}
-      <View style={styles.content}>
-        <AISymbol isTalking={true} />
-        <Question
-          question={question ?? "Failed to get question"}
-          section={section ?? "Failed to get section"}
-        />
-        <Controls />
-        <Messages />
-      </View>
+      <AISymbol isTalking={true} />
+      <Question
+        question={question ?? "Failed to get question"}
+        section={section ?? "Failed to get section"}
+      />
+      <Controls />
+      <Messages />
+      <UserInput isTalking={true} />
     </View>
   );
 };
