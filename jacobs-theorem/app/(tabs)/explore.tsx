@@ -10,9 +10,12 @@ export default function TabTwoScreen() {
     <SafeAreaView>
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Explore</ThemedText>
-        <Controls />
-        <Messages />
+
       </ThemedView>
+      <ThemedView style={styles.buttonsContainer}>
+        <Controls />
+      </ThemedView>
+      <Messages />
     </SafeAreaView>
 
   );
@@ -23,4 +26,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 8,
   },
+  buttonsContainer: {
+    flexDirection: 'row',
+    gap: 4,
+  }
 });

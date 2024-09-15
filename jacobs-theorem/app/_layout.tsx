@@ -10,7 +10,7 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 import { HumeClient, getAudioStream, checkForAudioTracks } from 'hume';
 
 
-const API_KEY = '';
+const API_KEY = 'jbn3llIwgMxcOo9qmMIrIoGdYpThAsTIaRgF3OSSUslyWeUv';
 const SECRET_KEY = '';
 
 const client = new HumeClient({
@@ -26,23 +26,10 @@ export default function RootLayout() {
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
 
-
-  const cb = useCallback(async () => {
-    try {
-      console.log("NAVIGATOR: ", navigator);
-      const stream = await getAudioStream();
-      const tracks = await checkForAudioTracks(stream);
-      console.log(tracks);
-    } catch (error) {
-      console.error(error);
-    }
-  }, []);
-
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
     }
-    cb();
   }, [loaded]);
 
   if (!loaded) {
@@ -50,14 +37,22 @@ export default function RootLayout() {
   }
 
   return (
-    <VoiceProvider auth={{ type: "apiKey", value: API_KEY }}>
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="+not-found" />
-        </Stack>
-      </ThemeProvider>
+    <VoiceProvider
+      configId='d8db284c-7c04-433c-bc42-801c5a974cdb'
+      onMessage={(message) => {
+        if (message.type === 'user_message') {
 
+        }
+        console.log("MESSAGE: ", message);
+        if (message.type === "user_message") {
+          console.log("USER MESSAGE: ", message.message.content);
+        }
+      }}
+      auth={{ type: "apiKey", value: API_KEY }}>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="+not-found" />
+      </Stack>
     </VoiceProvider>
   );
 }
