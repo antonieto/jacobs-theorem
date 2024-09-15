@@ -5,9 +5,10 @@ import { VoiceProvider } from "@humeai/voice-react";
 import "react-native-reanimated";
 import AIChat from "@/components/AIChat";
 
-import { useColorScheme } from "@/hooks/useColorScheme";
-import { HumeClient, getAudioStream, checkForAudioTracks } from "hume";
-import AISymbol from "@/components/AISymbol";
+import axios from "axios";
+
+
+const API_URL = "https://jacobs-theorem.onrender.com";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
