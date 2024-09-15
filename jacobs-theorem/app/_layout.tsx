@@ -3,8 +3,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useState } from "react";
 import "react-native-reanimated";
 import AIChat from "@/components/AIChat";
-import RecommendationsScreen from "@/components/RecommendationsScreen";
-
+import { OnboardingProvider } from "@/components/context/OnboardingContext";
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
@@ -24,6 +23,8 @@ export default function RootLayout() {
   }
 
   return (
-    <AIChat />
+    <OnboardingProvider>
+      <AIChat />
+    </OnboardingProvider>
   );
 }

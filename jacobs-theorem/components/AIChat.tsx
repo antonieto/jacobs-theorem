@@ -1,34 +1,35 @@
 import React, { useState } from "react";
 import { StyleSheet, SafeAreaView, Button } from "react-native";
 import KYCScreen from "./KYCScreen";
+import ReviewScreen from "./ReviewScreen";
 import { useVoice } from "@humeai/voice-react";
 import DatosPersonales from "./DatosPersonales";
+import { useOnboardingContext } from "./context/OnboardingContext";
 
 export default function AIChat() {
   // Estado para controlar si ya se completó la primera parte
-  const [isDatosPersonalesComplete, setIsDatosPersonalesComplete] =
-    useState(false);
+  const { step, setStep } = useOnboardingContext();
 
-  // Función que se pasa a DatosPersonales para saber cuándo está completo
-  const handleCompletion = () => {
-    setIsDatosPersonalesComplete(true);
+  const handlePersonalInfoCompletion = () => {
+    setStep('kyc');
+  };
+
+  const handleReviewSubmit = () => {
+    setStep('success');
   };
 
   return (
     <SafeAreaView
       style={{ width: "100%", height: "100%", backgroundColor: "white" }}
     >
-      {isDatosPersonalesComplete ? (
-        // Renderizamos KYCScreen si DatosPersonales está completo
-        <KYCScreen
-          question="What do you do for a living?"
-          section="Questions about yourself"
-          progress={1}
-        />
-      ) : (
-        // Renderizamos DatosPersonales si aún no está completo
-        <DatosPersonales onComplete={handleCompletion} />
-      )}
+      {step === 'personal_info' || step === 'biometric' ? (
+        <DatosPersonales onComplete={handlePersonalInfoCompletion} />
+      ) : step === 'kyc' ? (
+        <KYCScreen progress={2} />
+      ) : step === 'review' ? (
+        <ReviewScreen onSubmit={handleReviewSubmit} />
+      ) : null}
+
     </SafeAreaView>
   );
 }

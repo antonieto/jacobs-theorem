@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import AISymbol from "./AISymbol";
-import Question from "./Question";
 import { VoiceProvider } from "@humeai/voice-react";
 import Controls from "./voice/Controls";
 import Messages from "./voice/Messages";
@@ -10,25 +9,27 @@ import Header from "./Header";
 import { useVoice } from "@humeai/voice-react";
 import axios from "axios";
 import { Hume } from "hume";
+import { useOnboardingContext } from "./context/OnboardingContext";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const API_URL = "https://jacobs-theorem.onrender.com";
 
 // Define the prop types using a type or interface
 interface QuestionComponentProps {
-  question: string | null;
-  section: string | null;
   progress: number; // Add progress prop
 }
 
 const KYCScreen: React.FC<QuestionComponentProps> = (
   props: QuestionComponentProps,
 ) => {
+
   const [conversation, setConversation] = useState<
     { sender: "user" | "assistant"; message: string }[]
   >([]);
 
   const [prosodySum, setProsodySum] = useState<Hume.empathicVoice.ProsodyInference['scores'] | null>(null);
   const [userMessageCount, setUserMessageCount] = useState<number>(0);
+  const { setKycPayload, setStep } = useOnboardingContext();
 
   return (
     <VoiceProvider
@@ -63,13 +64,6 @@ const KYCScreen: React.FC<QuestionComponentProps> = (
           ]);
         }
 
-
-        if (message.type === 'assistant_end') {
-          // TODO: add parse KYC conversation API call here
-          // Parse conversation to plain text
-          const plainText = conversation.reduce((acc, curr) => acc + `${curr.sender === 'user' ? 'User: ' : 'Assistant: '}${curr.message}\n`, '');
-          console.log(plainText);
-        }
         if (message.type === 'assistant_message' || message.type === 'user_message') {
           setConversation(prev => [...prev, { sender: message.type === 'assistant_message' ? 'assistant' : 'user', message: message.message.content ?? '' }]);
         }
@@ -84,11 +78,8 @@ const KYCScreen: React.FC<QuestionComponentProps> = (
             setProsodySum(newProsodySum);
           }
         }
-        console.log(prosodySum, userMessageCount);
-
       }}
       onClose={async (ev) => {
-        // TODO: add parse KYC conversation API call here
         if (ev.wasClean) {
           const plainText = conversation.reduce(
             (acc, curr) =>
@@ -100,7 +91,8 @@ const KYCScreen: React.FC<QuestionComponentProps> = (
             const response = await axios.post(`${API_URL}/extract-data`, {
               conversation: plainText,
             });
-            console.log(response.data);
+            setKycPayload(response.data);
+            setStep('review');
           } catch (error) {
             console.error(error);
           }
@@ -113,11 +105,12 @@ const KYCScreen: React.FC<QuestionComponentProps> = (
 };
 
 const KYCScreenContent: React.FC<QuestionComponentProps> = ({
-  question,
-  section,
   progress,
 }) => {
-  const { connect, disconnect, lastVoiceMessage, lastUserMessage } = useVoice();
+  const { connect, disconnect, lastUserMessage } = useVoice();
+
+  const { setStep, setKycPayload } = useOnboardingContext();
+
   useEffect(() => {
     connect();
     return () => {
@@ -147,6 +140,30 @@ const KYCScreenContent: React.FC<QuestionComponentProps> = ({
       <View style={styles.userInputContainer}>
         <UserInput isTalking={isUserTalking} />
       </View>
+
+      { /* Button to skip KYC and mock a response */}
+      <TouchableOpacity onPress={() => {
+        disconnect();
+        setKycPayload({
+          occupation: "Software Engineer",
+          incomeSource: "Salary",
+          moneyUsage: "Investing",
+          primaryFinancialActivities: "Stocks, Crypto",
+          fundingSource: "Salary",
+          averageMonthlyBalance: 1000,
+          withdrawals: {
+            count: 10,
+            amount: 100,
+          },
+          deposits: {
+            count: 10,
+            amount: 100,
+          },
+        });
+        setStep('review');
+      }}>
+        <Text>Skip KYC</Text>
+      </TouchableOpacity>
     </View>
   );
 };
