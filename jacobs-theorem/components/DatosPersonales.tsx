@@ -5,11 +5,11 @@ import {
   Button,
   StyleSheet,
   TextInput,
-  CheckBox,
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import { Camera } from "expo-camera";
+import { CameraView } from "expo-camera";
+import CheckBox from "expo-checkbox";
 import Header from "./Header";
 
 interface DatosPersonalesProps {
@@ -22,7 +22,7 @@ const DatosPersonales: React.FC<DatosPersonalesProps> = ({ onComplete }) => {
   const [isChecked, setIsChecked] = useState(false);
 
   const handleNextStep = async () => {
-    if (currentStep < 5) {
+    if (currentStep < 6) {
       setCurrentStep(currentStep + 1);
     } else {
       onComplete();
@@ -74,20 +74,33 @@ const DatosPersonales: React.FC<DatosPersonalesProps> = ({ onComplete }) => {
           </ScrollView>
         );
       case 3:
+        // [TODO]: find better labels for the text in each step
         return (
-          <View>
-            <Text style={styles.text}>Taking a picture...</Text>
-            <Button title="Open Camera" onPress={takePicture} />
+          <View style={styles.contentContainer}>
+            <Text style={styles.label}>
+              Take a photo of the FRONT face of your INE
+            </Text>
+            <CameraView style={styles.camera} />;
           </View>
         );
       case 4:
         return (
-          <View>
-            <Text style={styles.text}>Take a selfie</Text>
-            <Button title="Open Front Camera" onPress={takeSelfie} />
+          <View style={styles.contentContainer}>
+            <Text style={styles.label}>
+              Take a photo of the BACK face of your INE
+            </Text>
+            <CameraView style={styles.camera} />;
           </View>
         );
       case 5:
+        return (
+          <View>
+            <Text style={styles.text}>Now it's time to take a selfie</Text>
+          </View>
+        );
+      case 6:
+        return <CameraView style={styles.camera} facing="front" />;
+      case 7:
         return (
           <ScrollView contentContainerStyle={styles.formContainer}>
             <Text style={styles.formTitle}>Data collected from your ID</Text>
@@ -96,94 +109,78 @@ const DatosPersonales: React.FC<DatosPersonalesProps> = ({ onComplete }) => {
             <TextInput
               style={styles.input}
               value="Juan Pérez García"
-              onChangeText={() => {}}
+              onChangeText={() => { }}
             />
 
             <Text style={styles.label}>CURP:</Text>
             <TextInput
               style={styles.input}
               value="PEPJ800101HDFRRR09"
-              onChangeText={() => {}}
+              onChangeText={() => { }}
             />
 
             <Text style={styles.label}>Elector Key:</Text>
             <TextInput
               style={styles.input}
               value="ELT1234567890"
-              onChangeText={() => {}}
+              onChangeText={() => { }}
             />
 
             <Text style={styles.label}>Issue Number:</Text>
             <TextInput
               style={styles.input}
               value="01"
-              onChangeText={() => {}}
+              onChangeText={() => { }}
             />
 
             <Text style={styles.label}>Issue Option:</Text>
-            <TextInput style={styles.input} value="A" onChangeText={() => {}} />
+            <TextInput style={styles.input} value="A" onChangeText={() => { }} />
 
             <Text style={styles.label}>Section:</Text>
             <TextInput
               style={styles.input}
               value="1234"
-              onChangeText={() => {}}
+              onChangeText={() => { }}
             />
 
             <Text style={styles.label}>Registration Year:</Text>
             <TextInput
               style={styles.input}
               value="2022"
-              onChangeText={() => {}}
+              onChangeText={() => { }}
             />
 
             <Text style={styles.label}>State:</Text>
             <TextInput
               style={styles.input}
               value="Ciudad de México"
-              onChangeText={() => {}}
+              onChangeText={() => { }}
             />
 
             <Text style={styles.label}>Municipality:</Text>
             <TextInput
               style={styles.input}
               value="Benito Juárez"
-              onChangeText={() => {}}
+              onChangeText={() => { }}
             />
 
             <Text style={styles.label}>Locality:</Text>
             <TextInput
               style={styles.input}
               value="Del Valle"
-              onChangeText={() => {}}
+              onChangeText={() => { }}
             />
 
             <Text style={styles.label}>Validity:</Text>
             <TextInput
               style={styles.input}
               value="2028"
-              onChangeText={() => {}}
+              onChangeText={() => { }}
             />
           </ScrollView>
         );
       default:
         return null;
-    }
-  };
-
-  const takePicture = async () => {
-    const { status } = await Camera.requestPermissionsAsync();
-    setCameraPermission(status === "granted");
-    if (cameraPermission) {
-      console.log("Picture taken");
-    }
-  };
-
-  const takeSelfie = async () => {
-    const { status } = await Camera.requestPermissionsAsync();
-    setCameraPermission(status === "granted");
-    if (cameraPermission) {
-      console.log("Selfie taken");
     }
   };
 
@@ -202,7 +199,13 @@ const DatosPersonales: React.FC<DatosPersonalesProps> = ({ onComplete }) => {
           onPress={handleNextStep}
           disabled={currentStep === 2 && !isChecked}
         >
-          <Text style={styles.buttonText}>Next</Text>
+          <Text style={styles.buttonText}>
+            {currentStep === 3 || currentStep === 4 || currentStep === 6
+              ? "Take Photo"
+              : currentStep === 5
+                ? "Open camera"
+                : "Next"}
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -220,6 +223,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
     paddingHorizontal: 16,
+  },
+  camera: {
+    flex: 1,
+    width: "100%",
+    margin: 15,
   },
   buttonContainer: {
     marginBottom: 20,
