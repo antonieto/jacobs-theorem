@@ -1,0 +1,237 @@
+{
+  "accounts": [
+    {
+      "name": "Cuenta Mujer Banorte",
+      "type": "checking_account",
+      "description": "Account designed for women, offering benefits to manage your money and access it through a Debit Card with or without a checkbook.",
+      "benefits": [
+        "No minimum opening amount for a limited time",
+        "No membership fee for a limited time",
+        "No minimum balance for a limited time",
+        "Fee exemption when changing payroll to Banorte",
+        "Women's Disease Insurance and Life Insurance",
+        "Home, medical, and legal assistance services",
+        "Purchase protection insurance",
+        "Total Banorte Reward Points for each purchase"
+      ],
+      "requirements": [
+        "Valid official ID",
+        "Proof of address no older than three months",
+        "Minimum opening amount of 3,000 pesos"
+      ],
+      "target_audience": ["women"]
+    },
+    {
+      "name": "Cuenta Enlace Personal Banorte",
+      "type": "checking_account",
+      "description": "Account that offers a comprehensive package of products and services that will open the doors to digital benefits.",
+      "benefits": [
+        "No minimum opening amount for a limited time",
+        "No membership fee for a limited time",
+        "No minimum balance for a limited time",
+        "Fee exemption when changing payroll to Banorte",
+        "Cuenta Enlace Personal Banorte Investment View",
+        "Banorte Shield for fraud protection"
+      ],
+      "requirements": [
+        "Valid official ID",
+        "Proof of address no older than three months",
+        "Minimum opening amount of 3,000 pesos"
+      ],
+      "target_audience": ["general"]
+    },
+    {
+      "name": "Suma Menores",
+      "type": "savings_account",
+      "description": "Savings account for individuals under 18 years old.",
+      "benefits": [
+        "Debit card with youth-oriented designs",
+        "Earnings when maintaining a 500 peso average monthly balance",
+        "Access to money at ATMs throughout the country and abroad",
+        "Purchases at physical stores, online, and in Apps",
+        "Protection in case of card theft or loss"
+      ],
+      "requirements": [
+        "Be under 18 years old",
+        "Birth certificate",
+        "Valid official ID of parent or guardian",
+        "Proof of address of parent or guardian",
+        "Minimum opening amount of 500 pesos"
+      ],
+      "target_audience": ["minors"]
+    },
+    {
+      "name": "Enlace Dolares",
+      "type": "dollar_account",
+      "description": "US dollar deposit account domiciled in the Mexican Republic.",
+      "benefits": [
+        "Option for dollar checkbook",
+        "Receive dollar transfers from anywhere in the world",
+        "Dollar cash withdrawal without currency conversion",
+        "Banorte Shield for Debit Card protection"
+      ],
+      "requirements": [
+        "Live in a 20-kilometer strip parallel to the international dividing line in the north of the country, or in the states of Baja California and Baja California Sur",
+        "Valid official ID with photograph",
+        "Proof of address",
+        "For individuals with business activities: tax identification certificate"
+      ],
+      "target_audience": ["northern_border_residents", "accredited_foreigners"]
+    },
+    {
+      "name": "Banorte Fácil (Cuenta Básica Bancaria)",
+      "type": "basic_account",
+      "description": "Accessible account without fees to cover basic banking needs.",
+      "benefits": [
+        "No minimum opening amount",
+        "Free debit card",
+        "Payment for goods and services with debit card",
+        "Access to Online Banking and Banorte Mobile"
+      ],
+      "requirements": [
+        "Valid official ID",
+        "Proof of address no older than three months",
+        "Maintain a minimum average monthly balance of 1,000 pesos"
+      ],
+      "target_audience": ["general", "low_income"]
+    }
+  ],
+  "investments": [
+    {
+      "name": "Pagaré Tradicional",
+      "type": "fixed_term_investment",
+      "description": "Fixed-term investment with guaranteed rate.",
+      "benefits": [
+        "Returns that increase based on amount and term",
+        "Guaranteed fixed rate",
+        "Terms from 1 to 366 days",
+        "Reinvestment options",
+        "Minimum investment amount of 5,000 pesos"
+      ],
+      "requirements": [
+        "Visit Banorte branch",
+        "Minimum amount of 5,000 pesos"
+      ],
+      "target_audience": ["savers", "conservative_investors"]
+    },
+    {
+      "name": "Pagaré Altos Rendimientos",
+      "type": "fixed_term_investment",
+      "description": "Fixed-term investment with high returns.",
+      "benefits": [
+        "Attractive interest rates",
+        "Fixed interest known from contracting",
+        "Available terms: 28, 35, 60, 91, 182, and 366 days",
+        "Renewal options for capital and interest"
+      ],
+      "requirements": [
+        "Visit Banorte branch",
+        "Minimum amount of 250,000 pesos"
+      ],
+      "target_audience": ["investors", "high_net_worth"]
+    },
+    {
+      "name": "Inversión CD",
+      "type": "fixed_term_investment",
+      "description": "Fixed-term investment with rate referenced to CETES.",
+      "benefits": [
+        "Initial deposit of 100,000 pesos",
+        "Terms of 84, 168, and 364 days",
+        "Guaranteed rate reviewable every 28 days referenced to CETES",
+        "Personalized advice"
+      ],
+      "requirements": [
+        "Visit Banorte branch",
+        "Minimum amount of 100,000 pesos"
+      ],
+      "target_audience": ["investors", "yield_seekers"]
+    },
+    {
+      "name": "Inversión Plus",
+      "type": "flexible_investment",
+      "description": "Flexible investment with option for partial withdrawals.",
+      "benefits": [
+        "Initial deposit of 10,000 pesos",
+        "Fixed interest rate during the term",
+        "Terms of 7, 14, 28, 91, 182, and 364 days",
+        "Increases from 1,000 pesos",
+        "Option for early partial or total withdrawals"
+      ],
+      "requirements": [
+        "Visit Banorte branch",
+        "Minimum amount of 10,000 pesos"
+      ],
+      "target_audience": ["savers", "flexible_investors"]
+    }
+  ],
+  "mortgage_loans": [
+    {
+      "name": "Hipoteca Fuerte Banorte Adquisición de Vivienda",
+      "type": "mortgage_loan",
+      "description": "Loan to acquire new or used housing.",
+      "benefits": [
+        "Fixed annual interest rate from 9.38%",
+        "Up to 95% financing in co-financing with Infonavit",
+        "Applies Infonavit Support",
+        "Banorte Woman's Life Moments Coverage"
+      ],
+      "requirements": [
+        "Valid official ID",
+        "Proof of address no older than three months",
+        "Proof of income"
+      ],
+      "target_audience": ["home_buyers", "women"]
+    },
+    {
+      "name": "Hipoteca Fuerte Cero Banorte Adquisición de Vivienda",
+      "type": "mortgage_loan",
+      "description": "Mortgage loan without additional expenses.",
+      "benefits": [
+        "Fixed annual interest rate of 11.18%",
+        "Terms from 5 to 20 years",
+        "No pre-origination expenses, commissions, or associated insurance costs",
+        "Co-financing of up to 95% with Cofinavit Credit"
+      ],
+      "requirements": [
+        "Valid official ID",
+        "Proof of address no older than three months",
+        "Proof of minimum income of 10,000 pesos gross monthly"
+      ],
+      "target_audience": ["home_buyers", "fee_avoiders"]
+    }
+  ],
+  "pension_fund": [
+    {
+      "name": "Cuenta de Afore",
+      "type": "retirement_savings",
+      "description": "Account to manage and invest retirement savings.",
+      "benefits": [
+        "Management of mandatory and voluntary contributions",
+        "Investment in environmental and social projects",
+        "Low commission of 0.80%",
+        "Multiple channels for saving"
+      ],
+      "requirements": [
+        "Be a worker affiliated with IMSS or ISSSTE",
+        "For registration: not having previously chosen an Afore"
+      ],
+      "target_audience": ["formal_workers", "long_term_savers"]
+    },
+    {
+      "name": "Ahorro Voluntario",
+      "type": "voluntary_retirement_savings",
+      "description": "Additional savings to complement retirement or achieve financial goals.",
+      "benefits": [
+        "High returns",
+        "Access to sophisticated investment instruments",
+        "Tax benefits",
+        "Multiple options for making contributions"
+      ],
+      "requirements": [
+        "Have an Afore account or Voluntary Savings account",
+        "Social Security Number (NSS) or CURP"
+      ],
+      "target_audience": ["savers", "retirement_planners"]
+    }
+  ]
+}
