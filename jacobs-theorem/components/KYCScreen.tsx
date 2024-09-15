@@ -28,7 +28,8 @@ const KYCScreen: React.FC<QuestionComponentProps> = ({
   }, []);
 
   // Calculate based on last user message's timestamp
-  const isUserTalking = !!lastUserMessage && lastUserMessage.time.begin > Date.now() - 1000 * 10;
+  const isUserTalking =
+    !!lastUserMessage && lastUserMessage.time.begin > Date.now() - 1000 * 10;
 
   return (
     <View style={styles.container}>
@@ -43,6 +44,7 @@ const KYCScreen: React.FC<QuestionComponentProps> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 20,
   },
   content: {
     flex: 1, // Fills the remaining space

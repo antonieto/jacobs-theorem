@@ -8,10 +8,7 @@ interface QuestionProps {
 
 export default function Question({ question }: QuestionProps) {
   return (
-    <AnimatePresence
-      mode="wait"
-    >
-
+    <AnimatePresence mode="wait">
       <motion.div
         key={`${question}`}
         initial={{ opacity: 0, y: 20 }}
@@ -23,7 +20,6 @@ export default function Question({ question }: QuestionProps) {
           <Text style={styles.questionText}>{question}</Text>
         </View>
       </motion.div>
-
     </AnimatePresence>
   );
 }
