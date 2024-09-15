@@ -1,6 +1,6 @@
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "react-native-reanimated";
 import AIChat from "@/components/AIChat";
 
@@ -22,5 +22,7 @@ export default function RootLayout() {
     return null;
   }
 
-  return <AIChat />;
+  return (
+    <AIChat />
+  );
 }
