@@ -12,6 +12,7 @@ import { VoiceProvider, useVoice } from "@humeai/voice-react";
 import { CameraView } from "expo-camera";
 import CheckBox from "expo-checkbox";
 import Header from "./Header";
+import AISymbol from "./AISymbol";
 
 interface DatosPersonalesProps {
   onComplete: () => void; // Property to notify when completed
@@ -215,6 +216,15 @@ const DatosPersonalesContent: React.FC<DatosPersonalesProps> = ({
 
       <View style={styles.contentContainer}>{renderStepContent()}</View>
 
+      <div
+        style={{
+          position: "absolute",
+          top: 100,
+          right: 40,
+        }}
+      >
+        <AISymbol isTalking={true} />
+      </div>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={[
