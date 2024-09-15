@@ -1,11 +1,23 @@
-import React from "react";
-import { View, Image, StyleSheet } from "react-native";
-// Define the prop types for the Header
+import React, { useEffect, useRef } from "react";
+import { View, Image, StyleSheet, Animated } from "react-native";
+
 interface HeaderProps {
   progress: number; // Expect progress as a percentage (0-100)
 }
 
 const Header: React.FC<HeaderProps> = ({ progress }) => {
+  // Ref para animar el ancho de la barra de progreso
+  const progressAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    // Cuando el progreso cambie, animamos la barra
+    Animated.timing(progressAnim, {
+      toValue: progress,
+      duration: 500, // Duración de la animación en milisegundos
+      useNativeDriver: false, // Como estamos animando el estilo, no podemos usar native driver
+    }).start();
+  }, [progress]);
+
   return (
     <View style={styles.headerContainer}>
       {/* Logo */}
@@ -16,8 +28,16 @@ const Header: React.FC<HeaderProps> = ({ progress }) => {
 
       {/* Progress Bar */}
       <View style={styles.progressBarBackground}>
-        <View
-          style={[styles.progressBarForeground, { width: `${progress}%` }]}
+        <Animated.View
+          style={[
+            styles.progressBarForeground,
+            {
+              width: progressAnim.interpolate({
+                inputRange: [0, 100],
+                outputRange: ["0%", "100%"],
+              }),
+            },
+          ]}
         />
       </View>
     </View>
@@ -35,14 +55,14 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
   },
   progressBarBackground: {
-    width: "100%", // Take 90% of the width of the screen
+    width: "100%",
     height: 8,
-    backgroundColor: "#BCBCBC", // Grey background (100% bar)
-    overflow: "hidden", // To ensure the foreground is clipped
+    backgroundColor: "#BCBCBC",
+    overflow: "hidden",
   },
   progressBarForeground: {
     height: "100%",
-    backgroundColor: "#EC0029", // Green color (progress bar)
+    backgroundColor: "#EC0029", // Color de la barra de progreso
   },
 });
 

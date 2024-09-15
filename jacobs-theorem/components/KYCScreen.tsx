@@ -5,8 +5,8 @@ import Question from "./Question";
 import Controls from "./voice/Controls";
 import Messages from "./voice/Messages";
 import UserInput from "./UserInput";
-import { useVoice } from "@humeai/voice-react";
 import Header from "./Header";
+import { useVoice } from "@humeai/voice-react";
 
 // Define the prop types using a type or interface
 interface QuestionComponentProps {
@@ -34,7 +34,6 @@ const KYCScreen: React.FC<QuestionComponentProps> = ({
 
   return (
     <View style={styles.container}>
-
       {/* Header fixed at 20% height */}
       <View style={styles.headerContainer}>
         <Header progress={progress} />
@@ -49,7 +48,7 @@ const KYCScreen: React.FC<QuestionComponentProps> = ({
 
       {/* UserInput fixed at the bottom with 10% height */}
       <View style={styles.userInputContainer}>
-        <UserInput isTalking={false} />
+        <UserInput isTalking={isUserTalking} />
       </View>
     </View>
   );
@@ -58,7 +57,6 @@ const KYCScreen: React.FC<QuestionComponentProps> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
     backgroundColor: "white",
   },
   // Header takes up 20% of the screen height
@@ -70,13 +68,13 @@ const styles = StyleSheet.create({
   // Middle section (Messages, AISymbol, Question, Controls) takes up 60%
   middleContainer: {
     flex: 6,
-    justifyContent: "center", // Center the content vertically
+    top: "10%",
     alignItems: "center", // Center the content horizontally
     padding: 20, // Optional padding
   },
   // User input takes up 10% at the bottom
   userInputContainer: {
-    flex: 2,
+    flex: 1.5,
     justifyContent: "flex-start", // Align the user input at the bottom
   },
 });
