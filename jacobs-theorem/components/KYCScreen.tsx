@@ -20,17 +20,19 @@ const KYCScreen: React.FC<QuestionComponentProps> = ({
 }) => {
   return (
     <View style={styles.container}>
-      {/* Header with the logo and progress bar */}
+      {/* Header at the top */}
       <Header progress={progress} />
 
-      {/* Other components */}
-      <AISymbol isTalking={true} />
-      <Question
-        question={question ?? "Failed to get question"}
-        section={section ?? "Failed to get section"}
-      />
-      <Controls />
-      <Messages />
+      {/* Content below the header */}
+      <View style={styles.content}>
+        <AISymbol isTalking={true} />
+        <Question
+          question={question ?? "Failed to get question"}
+          section={section ?? "Failed to get section"}
+        />
+        <Controls />
+        <Messages />
+      </View>
     </View>
   );
 };
@@ -38,7 +40,10 @@ const KYCScreen: React.FC<QuestionComponentProps> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center", // Center vertically
+  },
+  content: {
+    flex: 1, // Fills the remaining space
+    top: "10%",
     alignItems: "center", // Center horizontally
     padding: 20, // Optional padding for breathing room
   },
