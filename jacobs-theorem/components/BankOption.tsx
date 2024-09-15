@@ -4,14 +4,9 @@ import { View, Text, Image, StyleSheet } from "react-native";
 interface BankOptionProps {
   title: string;
   characteristics: string[];
-  image: any;
 }
 
-const BankOption: React.FC<BankOptionProps> = ({
-  title,
-  characteristics,
-  image,
-}) => {
+const BankOption: React.FC<BankOptionProps> = ({ title, characteristics }) => {
   return (
     <View style={styles.card}>
       <Text style={styles.title}>{title}</Text>
@@ -23,7 +18,7 @@ const BankOption: React.FC<BankOptionProps> = ({
           </View>
         ))}
       </View>
-      <Image source={image} style={styles.image} />
+      <Image source={"https://i.imgur.com/ZDHeh6p.png"} style={styles.image} />
     </View>
   );
 };

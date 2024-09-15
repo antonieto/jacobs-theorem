@@ -8,7 +8,6 @@ interface BankCarouselProps {
   recommendations: {
     title: string;
     characteristics: string[];
-    image: any;
   }[];
 }
 
@@ -24,11 +23,7 @@ const BankCarousel: React.FC<BankCarouselProps> = ({ recommendations }) => {
 
   const renderItem = ({ item }: any) => (
     <View style={styles.carouselItem}>
-      <BankOption
-        title={item.title}
-        characteristics={item.characteristics}
-        image={item.image}
-      />
+      <BankOption title={item.title} characteristics={item.characteristics} />
     </View>
   );
 
@@ -56,6 +51,7 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
+    marginLeft: 10,
   },
 });
 
