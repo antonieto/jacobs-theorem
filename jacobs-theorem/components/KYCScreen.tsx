@@ -1,12 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet } from "react-native";
 import AISymbol from "./AISymbol";
 import Question from "./Question";
+import { VoiceProvider } from "@humeai/voice-react";
 import Controls from "./voice/Controls";
 import Messages from "./voice/Messages";
 import UserInput from "./UserInput";
 import Header from "./Header";
 import { useVoice } from "@humeai/voice-react";
+import axios from "axios";
+
+const API_URL = "https://jacobs-theorem.onrender.com";
 
 // Define the prop types using a type or interface
 interface QuestionComponentProps {
@@ -15,7 +19,72 @@ interface QuestionComponentProps {
   progress: number; // Add progress prop
 }
 
-const KYCScreen: React.FC<QuestionComponentProps> = ({
+const KYCScreen: React.FC<QuestionComponentProps> = (
+  props: QuestionComponentProps,
+) => {
+  const [conversation, setConversation] = useState<
+    { sender: "user" | "assistant"; message: string }[]
+  >([]);
+
+  return (
+    <VoiceProvider
+      auth={{
+        type: "apiKey",
+        value: process.env.EXPO_PUBLIC_HUME_API_KEY!,
+      }}
+      configId="d8db284c-7c04-433c-bc42-801c5a974cdb"
+      onMessage={(message) => {
+        if (message.type === "assistant_end") {
+          // TODO: add parse KYC conversation API call here
+          // Parse conversation to plain text
+          const plainText = conversation.reduce(
+            (acc, curr) =>
+              acc +
+              `${curr.sender === "user" ? "User: " : "Assistant: "}${curr.message}\n`,
+            "",
+          );
+          console.log(plainText);
+        }
+        if (
+          message.type === "assistant_message" ||
+          message.type === "user_message"
+        ) {
+          setConversation((prev) => [
+            ...prev,
+            {
+              sender:
+                message.type === "assistant_message" ? "assistant" : "user",
+              message: message.message.content ?? "",
+            },
+          ]);
+        }
+      }}
+      onClose={async (ev) => {
+        // TODO: add parse KYC conversation API call here
+        if (ev.wasClean) {
+          const plainText = conversation.reduce(
+            (acc, curr) =>
+              acc +
+              `${curr.sender === "user" ? "User: " : "Assistant: "}${curr.message}\n`,
+            "",
+          );
+          try {
+            const response = await axios.post(`${API_URL}/extract-data`, {
+              conversation: plainText,
+            });
+            console.log(response.data);
+          } catch (error) {
+            console.error(error);
+          }
+        }
+      }}
+    >
+      <KYCScreenContent {...props} />
+    </VoiceProvider>
+  );
+};
+
+const KYCScreenContent: React.FC<QuestionComponentProps> = ({
   question,
   section,
   progress,

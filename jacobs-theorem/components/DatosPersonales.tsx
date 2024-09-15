@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -8,15 +8,41 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
+import { VoiceProvider, useVoice } from "@humeai/voice-react";
 import { CameraView } from "expo-camera";
 import CheckBox from "expo-checkbox";
 import Header from "./Header";
+import AISymbol from "./AISymbol";
 
 interface DatosPersonalesProps {
   onComplete: () => void; // Property to notify when completed
 }
 
-const DatosPersonales: React.FC<DatosPersonalesProps> = ({ onComplete }) => {
+const DatosPersonales: React.FC<DatosPersonalesProps> = (props) => {
+  return (
+    <VoiceProvider
+      auth={{
+        type: "apiKey",
+        value: process.env.EXPO_PUBLIC_HUME_API_KEY!,
+      }}
+      configId="31e91dae-d653-44b7-a247-2c5c89a435d9"
+    >
+      <DatosPersonalesContent {...props} />
+    </VoiceProvider>
+  );
+};
+
+const DatosPersonalesContent: React.FC<DatosPersonalesProps> = ({
+  onComplete,
+}) => {
+  const { connect, disconnect, lastVoiceMessage, lastUserMessage } = useVoice();
+  useEffect(() => {
+    connect();
+    return () => {
+      disconnect();
+    };
+  }, []);
+
   const [currentStep, setCurrentStep] = useState(1);
   const [cameraPermission, setCameraPermission] = useState(null);
   const [isChecked, setIsChecked] = useState(false);
@@ -190,6 +216,15 @@ const DatosPersonales: React.FC<DatosPersonalesProps> = ({ onComplete }) => {
 
       <View style={styles.contentContainer}>{renderStepContent()}</View>
 
+      <div
+        style={{
+          position: "absolute",
+          top: 100,
+          right: 40,
+        }}
+      >
+        <AISymbol isTalking={true} />
+      </div>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={[
