@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
     top: "10%",
     alignItems: "center", // Center horizontally
     padding: 20, // Optional padding for breathing room
+    backgroundColor: "white",
   },
 });
 
