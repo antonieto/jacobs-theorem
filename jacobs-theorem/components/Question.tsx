@@ -22,14 +22,14 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   sectionText: {
-    fontSize: 14,
-    fontFamily: "PoppinsRegular",
+    fontSize: 18,
+    fontFamily: "Roboto",
     textAlign: "center",
     marginBottom: 15,
   },
   questionText: {
-    fontSize: 36,
-    fontFamily: "PoppinsLight",
+    fontSize: 40,
+    fontFamily: "Roboto",
     textAlign: "center",
     width: "80%",
   },

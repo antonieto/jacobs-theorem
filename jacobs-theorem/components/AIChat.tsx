@@ -7,10 +7,14 @@ import Messages from "@/components/voice/Messages";
 import KYCScreen from "./KYCScreen";
 
 export default function AIChat() {
-  const question = "Hello";
+  const question = "What do you do for a living?";
   return (
     <SafeAreaView style={{ width: "100%", height: "100%" }}>
-      <KYCScreen question={question} section={"Questions about yourself"} />
+      <KYCScreen
+        question={question}
+        section={"Questions about yourself"}
+        progress={66}
+      />
     </SafeAreaView>
   );
 }
