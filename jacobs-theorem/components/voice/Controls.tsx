@@ -2,9 +2,14 @@
 import { useVoice, VoiceReadyState } from "@humeai/voice-react";
 import { TouchableOpacity, Text, Alert } from "react-native";
 import { Audio } from 'expo-av';
+import { useEffect } from "react";
 
 export default function Controls() {
     const { connect, disconnect, readyState } = useVoice();
+    
+    useEffect(() => {
+
+    });
 
     const requestMicrophonePermission = async () => {
         const { status } = await Audio.requestPermissionsAsync();
@@ -30,20 +35,5 @@ export default function Controls() {
         }
     };
 
-    if (readyState === VoiceReadyState.OPEN) {
-        return (
-            <TouchableOpacity onPress={disconnect}>
-                <Text>End Session</Text>
-            </TouchableOpacity>
-        );
-    }
-
-    return (
-        <TouchableOpacity
-            style={{ backgroundColor: "white" }}
-            onPress={handleStartSession}
-        >
-            <Text>Start Session</Text>
-        </TouchableOpacity>
-    );
+    return null;
 }

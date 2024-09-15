@@ -2,27 +2,20 @@
 
 
 // ./components/Messages.tsx
-import { ConnectionMessage, useVoice } from "@humeai/voice-react";
-import { Hume } from "hume";
-import { Text, View, StyleSheet, ScrollView } from "react-native";
+import { useVoice } from "@humeai/voice-react";
+import { View, StyleSheet, ScrollView } from "react-native";
+import Question from "../Question";
 
 export default function Messages() {
     // const messages: ReturnType<typeof useVoice>["messages"] = DUMMY_MESSAGES;
-    const { messages } = useVoice();
+    const { lastVoiceMessage } = useVoice();
 
     return (
         <ScrollView>
-            {messages.map((msg, index) => {
-                if (msg.type === "user_message" || msg.type === "assistant_message") {
-                    return (
-                        <View style={styles.messageContainer} key={msg.type + index}>
-                            <Text style={msg.type === "user_message" ? styles.userMessage : styles.assistantMessage}>{msg.message.content}</Text>
-                        </View>
-                    );
-                }
+            <View style={styles.messageContainer}>
 
-                return null;
-            })}
+                <Question section={"kyc"} question={lastVoiceMessage?.message.content ?? ''}></Question>
+            </View>
         </ScrollView>
     );
 }

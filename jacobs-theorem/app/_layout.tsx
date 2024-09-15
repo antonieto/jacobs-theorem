@@ -5,9 +5,9 @@ import { VoiceProvider } from "@humeai/voice-react";
 import "react-native-reanimated";
 import AIChat from "@/components/AIChat";
 
-import { useColorScheme } from "@/hooks/useColorScheme";
-import { HumeClient, getAudioStream, checkForAudioTracks } from "hume";
-import AISymbol from "@/components/AISymbol";
+import axios from "axios";
+
+const API_URL = "https://jacobs-theorem.onrender.com";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -48,12 +48,16 @@ export default function RootLayout() {
           setConversation(prev => [...prev, { sender: message.type === 'assistant_message' ? 'assistant' : 'user', message: message.message.content ?? '' }]);
         }
       }}
-      onClose={(ev) => {
-        console.log(ev);
+      onClose={async (ev) => {
         // TODO: add parse KYC conversation API call here
         if (ev.wasClean) {
           const plainText = conversation.reduce((acc, curr) => acc + `${curr.sender === 'user' ? 'User: ' : 'Assistant: '}${curr.message}\n`, '');
-          console.log(plainText);
+          try {
+            const response = await axios.post(`${API_URL}/extract-data`, { conversation: plainText });
+            console.log(response.data);
+          } catch (error) {
+            console.error(error);
+          }
         }
       }}
     >

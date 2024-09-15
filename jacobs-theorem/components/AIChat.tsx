@@ -10,7 +10,7 @@ import { useVoice } from "@humeai/voice-react";
 export default function AIChat() {
   const question = "What do you do for a living?";
   return (
-    <SafeAreaView style={{ width: "100%", height: "100%" }}>
+    <SafeAreaView style={{ width: "100%", height: "100%", backgroundColor: 'white' }}>
       <KYCScreen
         question={question}
         section={"Questions about yourself"}
