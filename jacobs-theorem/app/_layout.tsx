@@ -9,13 +9,6 @@ import { useColorScheme } from "@/hooks/useColorScheme";
 import { HumeClient, getAudioStream, checkForAudioTracks } from "hume";
 import AISymbol from "@/components/AISymbol";
 
-const API_KEY = "";
-const SECRET_KEY = "";
-
-const client = new HumeClient({
-  apiKey: API_KEY,
-  secretKey: SECRET_KEY,
-});
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
@@ -48,7 +41,12 @@ export default function RootLayout() {
   }
 
   return (
-    <VoiceProvider auth={{ type: "apiKey", value: API_KEY }}>
+    <VoiceProvider
+      auth={{
+        type: "apiKey",
+        value: process.env.EXPO_PUBLIC_HUME_API_KEY!,
+      }}
+    >
       {/*<AIChat/>*/}
       <AISymbol isTalking={true} />
     </VoiceProvider>
