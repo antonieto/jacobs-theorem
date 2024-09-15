@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, TextInput, Button } from "react-native";
 import axios from "axios";
+import { ThemedView } from "@/components/ThemedView";
 
 const API_URL = "https://jacobs-theorem.onrender.com";
 
@@ -35,7 +36,7 @@ export default function App() {
   };
 
   return (
-    <View style={styles.container}>
+    <ThemedView style={styles.container}>
       <Text>Message from server: {message}</Text>
       <TextInput
         style={styles.input}
@@ -50,14 +51,14 @@ export default function App() {
         placeholder="Item description"
       />
       <Button title="Create Item" onPress={createItem} />
-    </View>
+    </ThemedView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center",
   },

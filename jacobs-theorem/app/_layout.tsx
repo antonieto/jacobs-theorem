@@ -13,7 +13,6 @@ import AISymbol from "@/components/AISymbol";
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
@@ -46,6 +45,7 @@ export default function RootLayout() {
         type: "apiKey",
         value: process.env.EXPO_PUBLIC_HUME_API_KEY!,
       }}
+      configId="d8db284c-7c04-433c-bc42-801c5a974cdb"
     >
       <AIChat />
     </VoiceProvider>

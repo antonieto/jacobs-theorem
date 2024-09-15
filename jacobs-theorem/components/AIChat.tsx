@@ -5,6 +5,7 @@ import { ThemedView } from "@/components/ThemedView";
 import Controls from "@/components/voice/Controls";
 import Messages from "@/components/voice/Messages";
 import KYCScreen from "./KYCScreen";
+import { useVoice } from "@humeai/voice-react";
 
 export default function AIChat() {
   const question = "Hello";

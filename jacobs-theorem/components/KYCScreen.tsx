@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
     justifyContent: "center", // Center vertically
     alignItems: "center", // Center horizontally
     padding: 20, // Optional padding for breathing room
+    backgroundColor: "white",
   },
 });
 
