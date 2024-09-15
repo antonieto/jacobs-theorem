@@ -162,7 +162,6 @@ const KYCScreenContent: React.FC<QuestionComponentProps> = ({
         });
         setStep('review');
       }}>
-        <Text>Skip KYC</Text>
       </TouchableOpacity>
     </View>
   );

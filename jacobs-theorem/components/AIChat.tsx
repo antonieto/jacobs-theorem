@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, SafeAreaView, Button } from "react-native";
 import KYCScreen from "./KYCScreen";
 import ReviewScreen from "./ReviewScreen";
-import { useVoice } from "@humeai/voice-react";
+import { useVoice, VoiceProvider } from "@humeai/voice-react";
 import DatosPersonales from "./DatosPersonales";
 import { useOnboardingContext } from "./context/OnboardingContext";
 
@@ -27,7 +27,9 @@ export default function AIChat() {
       ) : step === 'kyc' ? (
         <KYCScreen progress={2} />
       ) : step === 'review' ? (
-        <ReviewScreen onSubmit={handleReviewSubmit} />
+        <VoiceProvider auth={{ value: process.env.EXPO_PUBLIC_HUME_API_KEY!, type: "apiKey" }} configId="f9021d96-a191-42d8-8ca9-cd720cb4e770">
+          <ReviewScreen onSubmit={handleReviewSubmit} />
+        </VoiceProvider>
       ) : null}
 
     </SafeAreaView>
