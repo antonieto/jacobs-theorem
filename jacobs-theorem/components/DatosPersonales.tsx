@@ -301,6 +301,9 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 20,
   },
+  stepTitle: {
+
+  },
   subtitle: {
     fontSize: 18,
     fontWeight: "bold",
