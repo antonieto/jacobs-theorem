@@ -6,6 +6,7 @@ import Controls from "./voice/Controls";
 import Messages from "./voice/Messages";
 import UserInput from "./UserInput";
 import { useVoice } from "@humeai/voice-react";
+import Header from "./Header";
 
 // Define the prop types using a type or interface
 interface QuestionComponentProps {
@@ -33,10 +34,23 @@ const KYCScreen: React.FC<QuestionComponentProps> = ({
 
   return (
     <View style={styles.container}>
-      <AISymbol isTalking={false} />
-      <Controls />
-      <Messages />
-      <UserInput isTalking={isUserTalking} />
+
+      {/* Header fixed at 20% height */}
+      <View style={styles.headerContainer}>
+        <Header progress={progress} />
+      </View>
+
+      {/* Messages in the middle taking 60% of the space */}
+      <View style={styles.middleContainer}>
+        <AISymbol isTalking={true} />
+        <Controls />
+        <Messages />
+      </View>
+
+      {/* UserInput fixed at the bottom with 10% height */}
+      <View style={styles.userInputContainer}>
+        <UserInput isTalking={false} />
+      </View>
     </View>
   );
 };
@@ -45,13 +59,25 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-  },
-  content: {
-    flex: 1, // Fills the remaining space
-    top: "10%",
-    alignItems: "center", // Center horizontally
-    padding: 20, // Optional padding for breathing room
     backgroundColor: "white",
+  },
+  // Header takes up 20% of the screen height
+  headerContainer: {
+    flex: 1,
+    justifyContent: "flex-start", // Align header content at the bottom of this section
+    alignItems: "center",
+  },
+  // Middle section (Messages, AISymbol, Question, Controls) takes up 60%
+  middleContainer: {
+    flex: 6,
+    justifyContent: "center", // Center the content vertically
+    alignItems: "center", // Center the content horizontally
+    padding: 20, // Optional padding
+  },
+  // User input takes up 10% at the bottom
+  userInputContainer: {
+    flex: 2,
+    justifyContent: "flex-start", // Align the user input at the bottom
   },
 });
 
