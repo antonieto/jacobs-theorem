@@ -6,6 +6,7 @@ import openai
 from dotenv import load_dotenv
 import json
 from fastapi.middleware.cors import CORSMiddleware
+from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 
 app = FastAPI()
 
@@ -34,6 +35,11 @@ class ExtractedData(BaseModel):
 class ConversationInput(BaseModel):
     conversation: str
 
+@retry(
+    stop=stop_after_attempt(3),
+    wait=wait_exponential(multiplier=1, min=2, max=10),
+    retry=retry_if_exception_type((json.JSONDecodeError, ValueError))
+)
 async def call_chatgpt(prompt: str) -> str:
     try:
         client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
@@ -46,7 +52,9 @@ async def call_chatgpt(prompt: str) -> str:
             max_tokens=1000
 
         )
-        return response.choices[0].message.content
+        response = response.choices[0].message.content
+        extracted_data = json.loads(response)
+        return extracted_data
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"OpenAI API error: {str(e)}")
 
@@ -74,8 +82,7 @@ async def extract_financial_data(input: ConversationInput):
 
             Return only the raw JSON object, without any additional text.
         """
-        chatgpt_response = await call_chatgpt(f"{extraction_prompt}\n\nConversation: {input.conversation}")
-        extracted_data = json.loads(chatgpt_response)
+        extracted_data = await call_chatgpt(f"{extraction_prompt}\n\nConversation: {input.conversation}")
         return ExtractedData(**extracted_data)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=f"Invalid data format from ChatGPT: {str(e)}")
@@ -134,8 +141,7 @@ async def recommend_products(input: RecommendationInput):
             Return only the raw JSON object, without any additional text.
         """
 
-        recommendation_response_json = await call_chatgpt(recommendation_prompt)
-        recommendation_response = json.loads(recommendation_response_json)
+        recommendation_response = await call_chatgpt(recommendation_prompt)
         return RecommendationResponse(**recommendation_response)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=f"Invalid data format from ChatGPT: {str(e)}")
