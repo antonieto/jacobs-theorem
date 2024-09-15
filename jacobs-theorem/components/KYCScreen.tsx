@@ -4,19 +4,26 @@ import AISymbol from "./AISymbol";
 import Question from "./Question";
 import Controls from "./voice/Controls";
 import Messages from "./voice/Messages";
+import Header from "./Header"; // Import the new Header component
 
 // Define the prop types using a type or interface
 interface QuestionComponentProps {
   question: string | null;
   section: string | null;
+  progress: number; // Add progress prop
 }
 
-const QuestionComponent: React.FC<QuestionComponentProps> = ({
+const KYCScreen: React.FC<QuestionComponentProps> = ({
   question,
   section,
+  progress,
 }) => {
   return (
     <View style={styles.container}>
+      {/* Header with the logo and progress bar */}
+      <Header progress={progress} />
+
+      {/* Other components */}
       <AISymbol isTalking={true} />
       <Question
         question={question ?? "Failed to get question"}
@@ -37,4 +44,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default QuestionComponent;
+export default KYCScreen;

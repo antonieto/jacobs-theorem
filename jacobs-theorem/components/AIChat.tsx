@@ -10,7 +10,11 @@ export default function AIChat() {
   const question = "Hello";
   return (
     <SafeAreaView style={{ width: "100%", height: "100%" }}>
-      <KYCScreen question={question} section={"Questions about yourself"} />
+      <KYCScreen
+        question={question}
+        section={"Questions about yourself"}
+        progress={66}
+      />
     </SafeAreaView>
   );
 }
