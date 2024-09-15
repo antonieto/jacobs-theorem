@@ -4,13 +4,14 @@ import NumericalInput from "./NumericalInput";
 import CustomTextInput from "./TextInput";
 import { useEffect, useState } from "react";
 import Header from "./Header";
+import { useVoice } from "@humeai/voice-react";
 
 interface Props {
     onSubmit: () => void;
 }
 
 export default function ReviewScreen({ onSubmit }: Props) {
-
+    const { connect, mute, disconnect } = useVoice();
     const { kycPayload } = useOnboardingContext();
 
     const [form, setForm] = useState<KYCPayload>({
@@ -29,6 +30,15 @@ export default function ReviewScreen({ onSubmit }: Props) {
             amount: 0,
         },
     });
+
+    useEffect(() => {
+        connect();
+        mute();
+        return () => {
+            mute();
+            disconnect();
+        }
+    }, [])
 
     useEffect(() => {
         if (kycPayload) {
