@@ -26,7 +26,7 @@ export default function UserInput({ isTalking }: UserInputProps) {
             useNativeDriver: true,
             easing: Easing.inOut(Easing.ease),
           }),
-        ]),
+        ])
       ).start();
 
       Animated.loop(
@@ -43,7 +43,7 @@ export default function UserInput({ isTalking }: UserInputProps) {
             useNativeDriver: true,
             easing: Easing.inOut(Easing.ease),
           }),
-        ]),
+        ])
       ).start();
     } else {
       outerCircleAnim.stopAnimation();
@@ -102,7 +102,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 20,
-    marginLeft: 54,
   },
   micContainer: {
     width: 44,
@@ -137,9 +136,9 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   outerCircle: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
+    width: 55,
+    height: 55,
+    borderRadius: 50,
     backgroundColor: "white",
     justifyContent: "center",
     alignItems: "center",
