@@ -1,5 +1,9 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
+import AISymbol from "./AISymbol";
+import Question from "./Question";
+import Controls from "./voice/Controls";
+import Messages from "./voice/Messages";
 
 // Define the prop types using a type or interface
 interface QuestionComponentProps {
@@ -13,9 +17,13 @@ const QuestionComponent: React.FC<QuestionComponentProps> = ({
 }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.questionText}>
-        {question} - {section}
-      </Text>
+      <AISymbol isTalking={true} />
+      <Question
+        question={question ?? "Failed to get question"}
+        section={section ?? "Failed to get section"}
+      />
+      <Controls />
+      <Messages />
     </View>
   );
 };
@@ -23,12 +31,9 @@ const QuestionComponent: React.FC<QuestionComponentProps> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  questionText: {
-    fontSize: 20,
-    textAlign: "center",
+    justifyContent: "center", // Center vertically
+    alignItems: "center", // Center horizontally
+    padding: 20, // Optional padding for breathing room
   },
 });
 

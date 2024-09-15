@@ -9,13 +9,8 @@ import KYCScreen from "./KYCScreen";
 export default function AIChat() {
   const question = "Hello";
   return (
-    <SafeAreaView>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Explore</ThemedText>
-        <Controls />
-        <Messages />
-        <KYCScreen question={question} section={"Questions about yourself"} />
-      </ThemedView>
+    <SafeAreaView style={{ width: "100%", height: "100%" }}>
+      <KYCScreen question={question} section={"Questions about yourself"} />
     </SafeAreaView>
   );
 }
