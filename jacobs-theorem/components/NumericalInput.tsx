@@ -47,13 +47,13 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 24,
-    fontFamily: "Roboto",
+    fontFamily: "Arial",
     textAlign: "center",
     width: "80%",
   },
   input: {
     fontSize: 16,
-    fontFamily: "Roboto",
+    fontFamily: "Arial",
     textAlign: "center",
     width: "80%",
     borderBottomWidth: 1,
