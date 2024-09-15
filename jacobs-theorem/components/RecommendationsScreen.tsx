@@ -1,11 +1,47 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import BankCarousel from "./BankCarousel";
-import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  ActivityIndicator,
+} from "react-native";
 import Header from "./Header";
 import UserInput from "./UserInput";
 import axios from "axios";
 
-export default function RecommendationsScreen() {
+interface Props {
+  user_data: string;
+}
+
+const API_URL = "https://jacobs-theorem.onrender.com";
+const endPoint = "recommend-products";
+
+export default function RecommendationsScreen({ user_data }: Props) {
+  const [recommendations, setRecommendations] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchRecommendations = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.post(`${API_URL}/${endPoint}`, {
+          user_data,
+        });
+        setRecommendations(response.data);
+      } catch (err) {
+        setError("Failed to load recommendations");
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRecommendations();
+  }, [user_data]);
+
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
@@ -22,22 +58,15 @@ export default function RecommendationsScreen() {
       </View>
 
       <View style={styles.middleContainer}>
-        <BankCarousel
-          recommendations={[
-            {
-              title: "Bank 1",
-              characteristics: ["Feature 1", "Feature 2", "Feature 3"],
-            },
-            {
-              title: "Bank 2",
-              characteristics: ["Feature 1", "Feature 2", "Feature 3"],
-            },
-            {
-              title: "Bank 3",
-              characteristics: ["Feature 1", "Feature 2", "Feature 3"],
-            },
-          ]}
-        />
+        <View style={styles.middleContainer}>
+          {loading ? (
+            <ActivityIndicator size="large" color="#0000ff" />
+          ) : error ? (
+            <Text>Error: {error}</Text>
+          ) : (
+            <BankCarousel recommendations={recommendations} />
+          )}
+        </View>
       </View>
 
       <View style={styles.userInputContainer}>
