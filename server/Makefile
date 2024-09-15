@@ -17,6 +17,7 @@ all: venv install
 
 venv:
 	$(PYTHON) -m venv $(VENV)
+	sh -c 'source .venv/bin/activate'
 
 install: venv
 	$(VENV_BIN)/pip install -r $(REQUIREMENTS)
