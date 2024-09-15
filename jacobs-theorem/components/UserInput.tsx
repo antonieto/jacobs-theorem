@@ -15,17 +15,17 @@ export default function UserInput({ isTalking }: UserInputProps) {
         Animated.sequence([
           Animated.timing(micAnim, {
             toValue: 1,
-            duration: 1000,
+            duration: 1500,
             useNativeDriver: true,
             easing: Easing.inOut(Easing.ease),
           }),
           Animated.timing(micAnim, {
             toValue: 0,
-            duration: 1000,
+            duration: 1500,
             useNativeDriver: true,
             easing: Easing.inOut(Easing.ease),
           }),
-        ]),
+        ])
       ).start();
     } else {
       micAnim.stopAnimation();
