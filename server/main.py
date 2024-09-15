@@ -27,8 +27,6 @@ class ExtractedData(BaseModel):
     primaryFinancialActivities: str
     fundingSource: str
     averageMonthlyBalance: float
-    withdrawals: Dict[str, float]
-    deposits: Dict[str, float]
 
 # Define the input model
 class ConversationInput(BaseModel):
@@ -59,17 +57,7 @@ async def extract_financial_data(input: ConversationInput):
               "occupation": "User's job or profession",
               "incomeSource": "Source of the user's income",
               "moneyUsage": "How the user plans to use their money",
-              "primaryFinancialActivities": "Main financial activities or transactions",
-              "fundingSource": "Where the user's funds come from",
               "averageMonthlyBalance": "Average monthly account balance (number)",
-              "withdrawals": {
-                "count": "Number of withdrawals per month (integer)",
-                "amount": "Total amount of withdrawals (number)"
-              },
-              "deposits": {
-                "count": "Number of deposits per month (integer)",
-                "amount": "Total amount of deposits (number)"
-              }
             }
 
             Return only the raw JSON object, without any additional text.

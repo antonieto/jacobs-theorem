@@ -22,12 +22,13 @@ interface QuestionComponentProps {
 const KYCScreen: React.FC<QuestionComponentProps> = (
   props: QuestionComponentProps,
 ) => {
-
   const [conversation, setConversation] = useState<
     { sender: "user" | "assistant"; message: string }[]
   >([]);
 
-  const [prosodySum, setProsodySum] = useState<Hume.empathicVoice.ProsodyInference['scores'] | null>(null);
+  const [prosodySum, setProsodySum] = useState<
+    Hume.empathicVoice.ProsodyInference["scores"] | null
+  >(null);
   const [userMessageCount, setUserMessageCount] = useState<number>(0);
   const { setKycPayload, setStep } = useOnboardingContext();
 
@@ -64,17 +65,34 @@ const KYCScreen: React.FC<QuestionComponentProps> = (
           ]);
         }
 
-        if (message.type === 'assistant_message' || message.type === 'user_message') {
-          setConversation(prev => [...prev, { sender: message.type === 'assistant_message' ? 'assistant' : 'user', message: message.message.content ?? '' }]);
+        if (
+          message.type === "assistant_message" ||
+          message.type === "user_message"
+        ) {
+          setConversation((prev) => [
+            ...prev,
+            {
+              sender:
+                message.type === "assistant_message" ? "assistant" : "user",
+              message: message.message.content ?? "",
+            },
+          ]);
         }
-        if (message.type === 'user_message') {
+        if (message.type === "user_message") {
           if (message.models.prosody) {
-            setUserMessageCount(prev => prev + 1);
-            const newProsodySum = prosodySum ? { ...prosodySum } : message.models.prosody.scores;
+            setUserMessageCount((prev) => prev + 1);
+            const newProsodySum = prosodySum
+              ? { ...prosodySum }
+              : message.models.prosody.scores;
             // Sum the prosody scores
-            Object.entries(message.models.prosody.scores).forEach(([key, value]) => {
-              newProsodySum[key as keyof Hume.empathicVoice.EmotionScores] = (newProsodySum[key as keyof Hume.empathicVoice.EmotionScores] || 0) + value;
-            });
+            Object.entries(message.models.prosody.scores).forEach(
+              ([key, value]) => {
+                newProsodySum[key as keyof Hume.empathicVoice.EmotionScores] =
+                  (newProsodySum[
+                    key as keyof Hume.empathicVoice.EmotionScores
+                  ] || 0) + value;
+              },
+            );
             setProsodySum(newProsodySum);
           }
         }
@@ -92,7 +110,7 @@ const KYCScreen: React.FC<QuestionComponentProps> = (
               conversation: plainText,
             });
             setKycPayload(response.data);
-            setStep('review');
+            setStep("review");
           } catch (error) {
             console.error(error);
           }
@@ -104,9 +122,7 @@ const KYCScreen: React.FC<QuestionComponentProps> = (
   );
 };
 
-const KYCScreenContent: React.FC<QuestionComponentProps> = ({
-  progress,
-}) => {
+const KYCScreenContent: React.FC<QuestionComponentProps> = ({ progress }) => {
   const { connect, disconnect, lastUserMessage } = useVoice();
 
   const { setStep, setKycPayload } = useOnboardingContext();
@@ -141,29 +157,22 @@ const KYCScreenContent: React.FC<QuestionComponentProps> = ({
         <UserInput isTalking={isUserTalking} />
       </View>
 
-      { /* Button to skip KYC and mock a response */}
-      <TouchableOpacity onPress={() => {
-        disconnect();
-        setKycPayload({
-          occupation: "Software Engineer",
-          incomeSource: "Salary",
-          moneyUsage: "Investing",
-          primaryFinancialActivities: "Stocks, Crypto",
-          fundingSource: "Salary",
-          averageMonthlyBalance: 1000,
-          withdrawals: {
-            count: 10,
-            amount: 100,
-          },
-          deposits: {
-            count: 10,
-            amount: 100,
-          },
-        });
-        setStep('review');
-      }}>
-        <Text>
-        </Text>
+      {/* Button to skip KYC and mock a response */}
+      <TouchableOpacity
+        onPress={() => {
+          disconnect();
+          setKycPayload({
+            occupation: "Software Engineer",
+            incomeSource: "Salary",
+            moneyUsage: "Investing",
+            primaryFinancialActivities: "Stocks, Crypto",
+            fundingSource: "Salary",
+            averageMonthlyBalance: 1000,
+          });
+          setStep("review");
+        }}
+      >
+        <Text></Text>
       </TouchableOpacity>
     </View>
   );
