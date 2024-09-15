@@ -47,8 +47,7 @@ export default function RootLayout() {
         value: process.env.EXPO_PUBLIC_HUME_API_KEY!,
       }}
     >
-      {/*<AIChat/>*/}
-      <AISymbol isTalking={true} />
+      <AIChat />
     </VoiceProvider>
   );
 }
