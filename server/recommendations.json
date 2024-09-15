@@ -1,0 +1,53 @@
+{
+    "user_summary": "The user is a software engineer making approximately $80,000 per year with a stable financial situation. They typically maintain a balance of around $10,000 in their checking account with regular withdrawals and are planning to save for a down payment on a house in the coming years.",
+    "recommendations": [
+        {
+            "name": "Hipoteca Fuerte Banorte Adquisición de Vivienda",
+            "type": "mortgage_loan",
+            "reason": "This product is designed for home buyers, offering significant financing options and competitive interest rates.",
+            "key_benefits": [
+                "Fixed annual interest rate from 9.38%",
+                "Up to 95% financing in co-financing with Infonavit",
+                "Applies Infonavit Support",
+                "Banorte Woman's Life Moments Coverage"
+            ],
+            "requirements": [
+                "Valid official ID",
+                "Proof of address no older than three months",
+                "Proof of income"
+            ]
+        },
+        {
+            "name": "Pagaré Tradicional",
+            "type": "fixed_term_investment",
+            "reason": "To save for a down payment, the user can invest their savings in a fixed-term investment with guaranteed returns, allowing them to grow their down payment fund.",
+            "key_benefits": [
+                "Returns that increase based on amount and term",
+                "Guaranteed fixed rate",
+                "Terms from 1 to 366 days",
+                "Reinvestment options"
+            ],
+            "requirements": [
+                "Visit Banorte branch",
+                "Minimum amount of 5,000 pesos"
+            ]
+        },
+        {
+            "name": "Cuenta Enlace Personal Banorte",
+            "type": "checking_account",
+            "reason": "This account offers essential benefits for managing everyday finances with no fees while providing digital benefits.",
+            "key_benefits": [
+                "No minimum opening amount for a limited time",
+                "No membership fee for a limited time",
+                "Fee exemption when changing payroll to Banorte",
+                "Banorte Shield for fraud protection"
+            ],
+            "requirements": [
+                "Valid official ID",
+                "Proof of address no older than three months",
+                "Minimum opening amount of 3,000 pesos"
+            ]
+        }
+    ],
+    "additional_advice": "To enhance savings for the down payment, consider setting up a budget that prioritizes saving a specific portion of your income each month. Additionally, explore investment options that can provide higher returns in line with your risk tolerance."
+}
