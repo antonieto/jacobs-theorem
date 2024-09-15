@@ -1,10 +1,21 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-const QuestionComponent = (question: string) => {
+// Define the prop types using a type or interface
+interface QuestionComponentProps {
+  question: string | null;
+  section: string | null;
+}
+
+const QuestionComponent: React.FC<QuestionComponentProps> = ({
+  question,
+  section,
+}) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.questionText}>{question}</Text>
+      <Text style={styles.questionText}>
+        {question} - {section}
+      </Text>
     </View>
   );
 };
