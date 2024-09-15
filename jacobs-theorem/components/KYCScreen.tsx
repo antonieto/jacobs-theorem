@@ -9,6 +9,7 @@ import UserInput from "./UserInput";
 import Header from "./Header";
 import { useVoice } from "@humeai/voice-react";
 import axios from "axios";
+import { Hume } from "hume";
 
 const API_URL = "https://jacobs-theorem.onrender.com";
 
@@ -25,6 +26,9 @@ const KYCScreen: React.FC<QuestionComponentProps> = (
   const [conversation, setConversation] = useState<
     { sender: "user" | "assistant"; message: string }[]
   >([]);
+
+  const [prosodySum, setProsodySum] = useState<Hume.empathicVoice.ProsodyInference['scores'] | null>(null);
+  const [userMessageCount, setUserMessageCount] = useState<number>(0);
 
   return (
     <VoiceProvider
@@ -58,6 +62,30 @@ const KYCScreen: React.FC<QuestionComponentProps> = (
             },
           ]);
         }
+
+
+        if (message.type === 'assistant_end') {
+          // TODO: add parse KYC conversation API call here
+          // Parse conversation to plain text
+          const plainText = conversation.reduce((acc, curr) => acc + `${curr.sender === 'user' ? 'User: ' : 'Assistant: '}${curr.message}\n`, '');
+          console.log(plainText);
+        }
+        if (message.type === 'assistant_message' || message.type === 'user_message') {
+          setConversation(prev => [...prev, { sender: message.type === 'assistant_message' ? 'assistant' : 'user', message: message.message.content ?? '' }]);
+        }
+        if (message.type === 'user_message') {
+          if (message.models.prosody) {
+            setUserMessageCount(prev => prev + 1);
+            const newProsodySum = prosodySum ? { ...prosodySum } : message.models.prosody.scores;
+            // Sum the prosody scores
+            Object.entries(message.models.prosody.scores).forEach(([key, value]) => {
+              newProsodySum[key as keyof Hume.empathicVoice.EmotionScores] = (newProsodySum[key as keyof Hume.empathicVoice.EmotionScores] || 0) + value;
+            });
+            setProsodySum(newProsodySum);
+          }
+        }
+        console.log(prosodySum, userMessageCount);
+
       }}
       onClose={async (ev) => {
         // TODO: add parse KYC conversation API call here
