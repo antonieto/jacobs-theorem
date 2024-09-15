@@ -25,8 +25,6 @@ class ExtractedData(BaseModel):
     occupation: str
     incomeSource: str
     moneyUsage: str
-    primaryFinancialActivities: str
-    fundingSource: str
     averageMonthlyBalance: float
 
 # Define the input model
