@@ -68,7 +68,9 @@ async def extract_financial_data(input: ConversationInput):
 
             Return only the raw JSON object, without any additional text.
         """
-        extracted_data = await call_chatgpt(f"{extraction_prompt}\n\nConversation: {input.conversation}")
+        #extracted_data = await call_chatgpt(f"{extraction_prompt}\n\nConversation: {input.conversation}")
+        with open("financial_data.json", "r") as f:
+            extracted_data = json.load(f)
         return ExtractedData(**extracted_data)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=f"Invalid data format from ChatGPT: {str(e)}")
@@ -127,7 +129,9 @@ async def recommend_products(input: RecommendationInput):
             Return only the raw JSON object, without any additional text.
         """
 
-        recommendation_response = await call_chatgpt(recommendation_prompt)
+        #recommendation_response = await call_chatgpt(recommendation_prompt)
+        with open("recommendations.json", "r") as f:
+            recommendation_response = json.load(f)
         return RecommendationResponse(**recommendation_response)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=f"Invalid data format from ChatGPT: {str(e)}")
