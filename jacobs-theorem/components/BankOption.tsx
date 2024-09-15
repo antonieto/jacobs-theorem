@@ -2,16 +2,16 @@ import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 
 interface BankOptionProps {
-  title: string;
-  characteristics: string[];
+  name: string;
+  key_benefits: string[];
 }
 
-const BankOption: React.FC<BankOptionProps> = ({ title, characteristics }) => {
+const BankOption: React.FC<BankOptionProps> = ({ name, key_benefits }) => {
   return (
     <View style={styles.card}>
-      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.title}>{name}</Text>
       <View style={styles.characteristicsContainer}>
-        {characteristics.map((item, index) => (
+        {key_benefits.map((item, index) => (
           <View key={index} style={styles.characteristicItem}>
             <Text style={styles.dot}>{"\u2022"}</Text>
             <Text style={styles.characteristicText}>{item}</Text>
