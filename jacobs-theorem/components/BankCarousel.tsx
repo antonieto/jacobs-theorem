@@ -6,12 +6,13 @@ const { width: screenWidth } = Dimensions.get("window");
 
 interface BankCarouselProps {
   recommendations: {
-    title: string;
-    characteristics: string[];
+    name: string;
+    key_benefits: string[];
   }[];
 }
 
 const BankCarousel: React.FC<BankCarouselProps> = ({ recommendations }) => {
+  console.log("RECOMMENDATIONS: ", recommendations);
   const flatListRef = useRef<FlatList<any>>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -23,7 +24,7 @@ const BankCarousel: React.FC<BankCarouselProps> = ({ recommendations }) => {
 
   const renderItem = ({ item }: any) => (
     <View style={styles.carouselItem}>
-      <BankOption title={item.title} characteristics={item.characteristics} />
+      <BankOption name={item.name} key_benefits={item.key_benefits} />
     </View>
   );
 

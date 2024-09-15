@@ -162,6 +162,8 @@ const KYCScreenContent: React.FC<QuestionComponentProps> = ({
         });
         setStep('review');
       }}>
+        <Text>
+        </Text>
       </TouchableOpacity>
     </View>
   );

@@ -5,10 +5,11 @@ import ReviewScreen from "./ReviewScreen";
 import { useVoice, VoiceProvider } from "@humeai/voice-react";
 import DatosPersonales from "./DatosPersonales";
 import { useOnboardingContext } from "./context/OnboardingContext";
+import RecommendationsScreen from "./RecommendationsScreen";
 
 export default function AIChat() {
   // Estado para controlar si ya se completó la primera parte
-  const { step, setStep } = useOnboardingContext();
+  const { step, setStep, kycPayload } = useOnboardingContext();
 
   const handlePersonalInfoCompletion = () => {
     setStep('kyc');
@@ -30,6 +31,8 @@ export default function AIChat() {
         <VoiceProvider auth={{ value: process.env.EXPO_PUBLIC_HUME_API_KEY!, type: "apiKey" }} configId="f9021d96-a191-42d8-8ca9-cd720cb4e770">
           <ReviewScreen onSubmit={handleReviewSubmit} />
         </VoiceProvider>
+      ) : step === 'success' ? (
+        <RecommendationsScreen user_data={JSON.stringify(kycPayload)} />
       ) : null}
 
     </SafeAreaView>

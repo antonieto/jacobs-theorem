@@ -19,7 +19,10 @@ const API_URL = "https://jacobs-theorem.onrender.com";
 const endPoint = "recommend-products";
 
 export default function RecommendationsScreen({ user_data }: Props) {
-  const [recommendations, setRecommendations] = useState<any[]>([]);
+  const [recommendations, setRecommendations] = useState<{
+    name: string;
+    key_benefits: string[];
+  }[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -30,7 +33,8 @@ export default function RecommendationsScreen({ user_data }: Props) {
         const response = await axios.post(`${API_URL}/${endPoint}`, {
           user_data,
         });
-        setRecommendations(response.data);
+        console.log(response.data.recommendations);
+        setRecommendations(response.data.recommendations);
       } catch (err) {
         setError("Failed to load recommendations");
         console.error(err);
@@ -53,7 +57,7 @@ export default function RecommendationsScreen({ user_data }: Props) {
             marginTop: 20,
           }}
         >
-          ¡Las tarjetas que se adaptan mejor a ti!
+         Finance products best suited for you! 
         </Text>
       </View>
 
@@ -70,7 +74,7 @@ export default function RecommendationsScreen({ user_data }: Props) {
       </View>
 
       <View style={styles.userInputContainer}>
-        <TouchableOpacity style={[styles.button]} onPress={() => {}}>
+        <TouchableOpacity style={[styles.button]} onPress={() => { }}>
           <Text style={styles.buttonText}>Next</Text>
         </TouchableOpacity>
       </View>
