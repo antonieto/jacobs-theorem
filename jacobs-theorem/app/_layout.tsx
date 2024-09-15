@@ -23,6 +23,5 @@ export default function RootLayout() {
     return null;
   }
 
-  //return <AIChat />;
-  return <RecommendationsScreen />;
+  return <AIChat />;
 }
